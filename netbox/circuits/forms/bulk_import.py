@@ -1,6 +1,7 @@
+from django import forms
 from circuits.choices import CircuitStatusChoices
 from circuits.models import *
-from extras.forms import CustomFieldModelCSVForm
+from extras.forms import CustomFieldModelCSVForm,TagCSVForm
 from tenancy.models import Tenant
 from utilities.forms import CSVChoiceField, CSVModelChoiceField, SlugField
 
@@ -12,13 +13,16 @@ __all__ = (
 )
 
 
-class ProviderCSVForm(CustomFieldModelCSVForm):
+class ProviderCSVForm(CustomFieldModelCSVForm,TagCSVForm):
     slug = SlugField()
 
+    # tags = TagCSVForm(
+    #     required=False,
+    # )
     class Meta:
         model = Provider
         fields = (
-            'name', 'slug', 'asn', 'account', 'portal_url', 'noc_contact', 'admin_contact', 'comments',
+            'name', 'slug', 'asn', 'account', 'portal_url', 'noc_contact', 'admin_contact', 'comments', 'tags',
         )
 
 
